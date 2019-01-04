@@ -45,19 +45,37 @@ class Square extends React.Component {
             symbol: null,
         };
     }
-    
+
   render() {
     return (
-      <button className="square" onClick = { () => this.setState( {symbol: "X"} )}>
-          {this.state.symbol}
+      <button className="square"
+          onClick = { () => this.props.onClick()}>
+          {this.props.symbol}
       </button>
     );
   }
 }
 
 class Board extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            grid: Array(9).fill(" "),
+        }
+    }
+
+    handleClick(i) {
+        const grid = this.state.grid.slice();
+        grid[i] = "X";
+        this.setState({grid: grid});
+    }
+
   renderSquare(i) {
-    return <Square symbol = {i} />;
+    return (<Square
+        symbol = {this.state.grid[i]}
+        onClick = { () => this.handleClick(i)}
+            />
+    );
   }
 
   render() {
