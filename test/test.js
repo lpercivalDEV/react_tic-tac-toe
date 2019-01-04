@@ -1,5 +1,5 @@
 var assert = require('assert');
-var nextPlayer = "O"
+var nextPlayer = {playerSymbol: ["X"]}
     it('should return false when the nextPlayer is not equal to X', function() {
-      assert.equal(nextPlayer === "X", 1);
+      assert.equal(nextPlayer.playerSymbol,"X");
     });
