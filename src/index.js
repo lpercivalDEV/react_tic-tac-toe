@@ -39,10 +39,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            symbol: null,
+        };
+    }
+    
   render() {
     return (
-      <button className="square">
-          {this.props.symbol}
+      <button className="square" onClick = { () => this.setState( {symbol: "X"} )}>
+          {this.state.symbol}
       </button>
     );
   }
