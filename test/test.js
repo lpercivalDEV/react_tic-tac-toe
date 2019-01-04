@@ -1,8 +1,5 @@
 var assert = require('assert');
-describe('Array', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      assert.equal([1,2,3].indexOf(0), -1);
+var nextPlayer = "O"
+    it('should return false when the nextPlayer is not equal to X', function() {
+      assert.equal(nextPlayer === "X", 1);
     });
-  });
-});
