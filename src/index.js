@@ -13,13 +13,13 @@
            TITLE
     P1 x    |     P2 0
         | ALERT |
-    .  __   .  __   .  __   .                  *React Components?*
-        x        0        x                         - App/view component
-    .  __   .  __   .  __   .                   - Symbol compnents
+    .  __   .  __   .  __   .                  *Game Parts?*
+        x        0        x                         - App/view
+    .  __   .  __   .  __   .                   - Symbols
         0        x        0                        - board component
-    .  __   .  __   .  __   .                   - score component
-        x        0        0                        - title component
-    .  __   .  __   .  __   .                   - win/tie/alert component
+    .  __   .  __   .  __   .                   - score component  --> later
+        x        0        0                        - title/styling --> later
+    .  __   .  __   .  __   .                   - win/tie checker --> later
     p1 score |  p2 score
 
 */
@@ -52,13 +52,17 @@ class Board extends React.Component {
         super(props);
         this.state = {
             grid: Array(9).fill(" "),
-        }
+            xIsNext: true,
+        };
     }
 
     handleClick(i) {
         const grid = this.state.grid.slice();
-        grid[i] = "X";
-        this.setState({grid: grid});
+        grid[i] = this.state.xIsNext ? "X" : "O";
+        this.setState({
+            grid: grid,
+            xIsNext: !this.state.xIsNext,
+            });
     }
 
   renderSquare(i) {
@@ -70,7 +74,7 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'Next player: X';
+    const status = 'Next player: ' + (this.state.xIsNext ? "X" : "O");
 
     return (
       <div>
