@@ -40,8 +40,11 @@ import './index.css';
 
 //function component since only renders and doesn't have own state
 function Square(props) {
+let clickCon = () =>
+         props.symbol !== " " ?  null : props.onClick();
+
     return(
-        <button className="square" onClick = {props.onClick}>
+        <button className="square" onClick = {clickCon}>
             {props.symbol}
         </button>
             )
@@ -63,6 +66,8 @@ class Board extends React.Component {
             grid: grid,
             xIsNext: !this.state.xIsNext,
             });
+            this.checkWin(grid);
+
     }
 
   renderSquare(i) {
@@ -87,29 +92,80 @@ class Board extends React.Component {
           <div className="board-row">
               {this.renderSquare(3)}
               {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+              {this.renderSquare(5)}
+          </div>
+          <div className="board-row">
+              {this.renderSquare(6)}
+              {this.renderSquare(7)}
+              {this.renderSquare(8)}
+          </div>
       </div>
     );
   }
+
+//Win Logic
+
+//conditional  3 rows, 3 columns, or 2 diagonals
+// win alert, tells which symbol won
+// fired after each clicked
+
+//Rows
+//  0, 1,2
+// 3, 4, 5
+// 6, 7, 8
+
+//Columns
+// 0, 3, 6
+// 1, 4, 7
+// 2, 5, 8
+
+//Diagonals
+// 0, 4, 8
+// 2, 4, 6
+
+ checkWin(grid) {
+     //rows
+     this.compare(grid[0], grid[1], grid[2]);
+     this.compare(grid[3], grid[4], grid[5]);
+     this.compare(grid[6], grid[7], grid[8]);
+
+     //Columns
+     this.compare(grid[0], grid[3], grid[6]);
+     this.compare(grid[1], grid[4], grid[7]);
+     this.compare(grid[2], grid[5], grid[8]);
+
+     //Diagonals
+     this.compare(grid[0], grid[4], grid[8]);
+     this.compare(grid[2], grid[4], grid[6]);
+
+
+}
+
+
+compare(x, y, z) {
+         if (x !== " " && y !== " " && z !== " " && x == y && y == z) {
+             alert("winner");
+         }
+
+//     if (grid[0] === grid[1] && grid[1] === grid[2]) {
+//         alert("Winner")
+// }
+    // console.log(grid);
+}
+
 }
 
 class Game extends React.Component {
   render() {
     return (
       <div className="game">
-        <div className="game-board">
-          <Board />
-        </div>
-        <div className="game-info">
-          <div>{/* status */}</div>
-          <ol>{/* TODO */}</ol>
-        </div>
+          <div className="game-board">
+              <Board />
+          </div>
+          <div className="game-info">
+              <div>{/* status */}</div>
+              <ol>{/* TODO */}</ol>
+          </div>
       </div>
     );
   }
